@@ -6,7 +6,7 @@ var http = require('http');
 
 module.exports = {
     getConnection:()=>{
-        return mysql.createConnection({
+        return mysql.createConnection({     //创建数据库连接的模块
             host:dbModel.host,
             user:dbModel.user,
             password:dbModel.password,
