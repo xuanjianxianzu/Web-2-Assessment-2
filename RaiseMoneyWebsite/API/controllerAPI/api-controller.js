@@ -1,8 +1,8 @@
-var express = require('express');   //导入模块
-var router = express.Router();
-var dbcon = require("../models/crowdfunding_db")
+const express = require('express');   //导入模块
+const router = express.Router();
+const dbcon = require("../models/crowdfunding_db")
 
-var connection = dbcon.getConnection();  //调用getConnection()创建新的连接到MySql数据库
+const connection = dbcon.getConnection();  //调用getConnection()创建新的连接到MySql数据库
 
 connection.connect(); //打开连接到MySql数据库
 

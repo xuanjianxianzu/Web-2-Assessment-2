@@ -1,8 +1,8 @@
 /**用于连接数据库 */
-var dbModel = require("./db_model");         //导入模块
-var mysql = require('mysql2');
-var bodyParser =require('body-parser');
-var http = require('http');
+const dbModel = require("./db_model");         //导入模块
+const mysql = require('mysql2');
+const bodyParser =require('body-parser');
+const http = require('http');
 
 module.exports = {
     getConnection:()=>{
