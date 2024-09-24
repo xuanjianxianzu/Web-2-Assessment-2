@@ -6,7 +6,14 @@
     </head>
     <body>
         <h1>search</h1>
-        <a href="index.html"><span>home</span></a>|<span>search</span>|<a href="fundraiser.html"><span>fundraiser</span></a>
-        <div></div>
+        <a href="/"><span>home</span></a>|<span>search</span>|<a href="fundraiser.html"><span>fundraiser</span></a>
+        <div>
+            <label>Organizer</label><input type="text" id="organizerInput">
+            <label>City</label><input type="text" id="cityInput">
+            <label>Category</label><input type="text" id="categoryInput">  
+            <button id="searchButton" onclick="startSearch()">Search</button>
+            <button id="clearButton" onclick="claerChechboxes()">Clear</button>
+        </div>
+        <div id="data"></div>
     </body>
 </html>
