@@ -31,6 +31,10 @@ function startSearch(){
                 data.forEach(fundraiser => {
                     const newP = document.createElement("p");
                     newP.textContent = `Findraiser ID:${fundraiser.FUNDRAISER_ID},ORGANIZER:${fundraiser.ORGANIZER}`;
+                    newP.addEventListener("click",function(){
+                        localStorage.setItem("ORGANIZER",fundraiser.ORGANIZER);
+                        location.href = './fundraiser.html';
+                    });
                     dataDiv.appendChild(newP);
                     
                 });
