@@ -1,12 +1,16 @@
 <!DOCTYPE html><html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>search page</title>
-        <script src="search.js"></script>
+        <script src="../script/search.js"></script>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/search.css">
     </head>
     <body>
-        <h1>search</h1>
-        <a href="/"><span>home</span></a>|<span>search</span>|<a href="fundraiser.html"><span>fundraiser</span></a>
+        <div class="Navigation">
+        <a href="/"><span>home</span></a>-<span class="current">search</span>-<a href="/fundraiser"><span>fundraiser</span></a>
+    </div>
         <div>
             <label>Organizer</label><input type="text" id="organizerInput">
             <label>City</label><input type="text" id="cityInput">

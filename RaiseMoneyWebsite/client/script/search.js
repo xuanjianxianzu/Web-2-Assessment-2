@@ -3,23 +3,24 @@ function startSearch(){
     const city = document.getElementById('cityInput').value;
     const category = document.getElementById('categoryInput').value;
 
-    let url = 'http://localhost:3060/api/raisemoney/Search/';
+    let url = 'http://localhost:3060/api/raisemoney/Search/';   
+    if(organizer||city||category){
+        if(organizer){
+            url += organizer+'&';
+        }else{
+            url +='&';
+        }
 
-    if(organizer){
-        url += organizer+'&';
-    }else{
-        url +='&';
-    }
+        if(city){
+            url += city+'&';
+        }else{
+            url +='&';
+        }
 
-    if(city){
-        url += city+'&';
-    }else{
-        url +='&';
-    }
+        if(category){
+            url += category;
+        }
 
-    if(category){
-        url += category;
-    }
    console.log(url);
     fetch(url)
         .then(response => response.json())
@@ -33,7 +34,7 @@ function startSearch(){
                     newP.textContent = `Findraiser ID:${fundraiser.FUNDRAISER_ID},ORGANIZER:${fundraiser.ORGANIZER}`;
                     newP.addEventListener("click",function(){
                         localStorage.setItem("ORGANIZER",fundraiser.ORGANIZER);
-                        location.href = './fundraiser.html';
+                        location.href = '/fundraiser';
                     });
                     dataDiv.appendChild(newP);
                     
@@ -47,6 +48,12 @@ function startSearch(){
             console.error("Error here",error);
             document.getElementById('data').textContent = "Load failure";
         });
+        
+    }else{
+        alert('At least one piece of data needs to be provided for lookup!');
+        const dataDiv = document.getElementById('data');
+        dataDiv.textContent = "";
+    }
 }
 
 function claerChechboxes(){

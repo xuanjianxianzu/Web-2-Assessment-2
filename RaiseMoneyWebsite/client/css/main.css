@@ -1,0 +1,27 @@
+/*给三个页面共同元素创建的css*/
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+/*导航区域的css*/
+  .Navigation {  
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Navigation a,.Navigation span {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.Navigation span.current{
+    background-color: #54baf9;
+}

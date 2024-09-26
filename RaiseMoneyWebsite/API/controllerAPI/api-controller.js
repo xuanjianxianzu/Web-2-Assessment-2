@@ -17,7 +17,8 @@ router.get("/",(req,res)=>{
             f.CURRENT_FUNDING, 
             f.CITY, 
             f.ACTIVE, 
-            c.NAME AS CATEGORY_NAME  
+            c.NAME AS CATEGORY_NAME,
+            c.CATEGORY_ID
         FROM
             FUNDRAISER f  
         JOIN
@@ -50,7 +51,7 @@ router.get("/Search/:search",(req,res)=>{
         JOIN 
             CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID        
         WHERE 
-            1=1 `;
+            f.ACTIVE=1 `;
     
     let queryParams = [];
     let organizer =null;
@@ -114,7 +115,8 @@ router.get("/:ORGANIZER",(req,res)=>{
         JOIN 
             CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID        
         WHERE 
-            f.ORGANIZER='${req.params.ORGANIZER}';`,(err,records,fields)=>{
+            f.ACTIVE=1
+            AND f.ORGANIZER='${req.params.ORGANIZER}';`,(err,records,fields)=>{
                 if(err){
                     console.error("Error while retrieve the data");
                 }else{
