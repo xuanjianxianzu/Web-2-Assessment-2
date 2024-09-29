@@ -48,6 +48,11 @@ fetch("http://localhost:3060/api/raisemoney") //通过api获取数据库数据
                 homePageCard.appendChild(progressBar);
                 dataDiv.appendChild(homePageCard);
 
+                homePageCard.addEventListener("click",function(){
+                    localStorage.setItem("ORGANIZER",fundraiser.ORGANIZER);
+                    location.href = '/fundraiser';
+                });
+
         });
     }else{
         dataDiv.textContent = "No fundraiser"

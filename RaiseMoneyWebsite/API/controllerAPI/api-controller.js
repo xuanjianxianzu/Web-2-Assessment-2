@@ -2,6 +2,7 @@ const express = require('express');   //导入模块
 const router = express.Router();
 const dbcon = require("../models/crowdfunding_db")
 
+
 const connection = dbcon.getConnection();  //调用getConnection()创建新的连接到MySql数据库
 
 connection.connect(); //打开连接到MySql数据库
@@ -33,6 +34,17 @@ router.get("/",(req,res)=>{
              })
 });
 
+router.get("/use/search/CATEGORY",(req,res)=>{
+    connection.query(
+        `SELECT * FROM CATEGORY;`,(err,records,fields)=>{
+                if(err){
+                    console.error("Error while retrieve the data");
+                }else{
+                    res.send(records);
+                }
+             })
+});
+
 router.get("/Search/:search",(req,res)=>{
 
     const searchParts = req.params.search.split('&');
@@ -52,7 +64,7 @@ router.get("/Search/:search",(req,res)=>{
             CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID        
         WHERE 
             f.ACTIVE=1 `;
-    
+
     let queryParams = [];
     let organizer =null;
     let city =null;

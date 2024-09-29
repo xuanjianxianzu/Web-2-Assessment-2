@@ -8,16 +8,18 @@
         <link rel="stylesheet" href="../css/search.css">
     </head>
     <body>
+        <div class="searchB">
         <div class="Navigation">
         <a href="/"><span>home</span></a>-<span class="current">search</span>-<a href="/fundraiser"><span>fundraiser</span></a>
     </div>
-        <div>
+        <div class="searchBox">
             <label>Organizer</label><input type="text" id="organizerInput">
             <label>City</label><input type="text" id="cityInput">
-            <label>Category</label><input type="text" id="categoryInput">  
+            <div id="checkbox"></div> 
             <button id="searchButton" onclick="startSearch()">Search</button>
             <button id="clearButton" onclick="claerChechboxes()">Clear</button>
         </div>
         <div id="data"></div>
+    </div>
     </body>
 </html>
