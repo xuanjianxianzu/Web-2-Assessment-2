@@ -1,37 +1,43 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('checkbox');
+    const dropDown = document.getElementById('dropDownBox');
+    const select = document.createElement('select');
+    select.name = 'category';
+
+    const prime = document.createElement('option');
+    prime.value = 'Click here to select';
+    prime.textContent = 'Click here to select';
+    select.appendChild(prime);
+
     fetch('http://localhost:3060/api/raisemoney/use/search/CATEGORY')
   .then(response => response.json())
   .then(data => {
             data.forEach(category => {
                 if (category && category['NAME']) {
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'radio';
-                    checkbox.value = category['NAME'];
-                    checkbox.id = 'checkbox_' + category['NAME'];
-                    checkbox.name = 'category';
-                    const label = document.createElement('label');
-                    label.textContent = category['NAME'];
-                    label.htmlFor = 'checkbox_' + category['NAME'];
-                    container.appendChild(checkbox);
-                    container.appendChild(label);
-                    container.appendChild(document.createElement('br'));
-                } else {
-                    console.log('Need more data');
-                }
-            });
-        })
-  .catch(error => console.error('Error:', error));
-});
+
+                        const option = document.createElement('option');
+                        option.value = category['NAME'];
+                        option.textContent = category['NAME'];
+                        select.appendChild(option);
+                    } else {
+                        console.log('Need more data');
+                    }
+                });
+                dropDown.appendChild(select);
+            })
+      .catch(error => console.error('Error:', error));
+    });
 
 function startSearch(){
     const organizer = document.getElementById('organizerInput').value;
     const city = document.getElementById('cityInput').value;
-    let category = document.querySelector('input[name="category"]:checked')?.value;  
-    if (category === undefined) {  
-        category = '';  
+    const dropDownBox = document.getElementById('dropDownBox');
+    const categorySelect = dropDownBox.querySelector('select');
+    let category = categorySelect.options[categorySelect.selectedIndex].value;
+    if(category==='Click here to select') {
+        category='';
     }
+    
     let url = 'http://localhost:3060/api/raisemoney/Search/';   
     if(organizer||city||category){
         if(organizer){
@@ -54,22 +60,45 @@ function startSearch(){
     fetch(url)
         .then(response => response.json())
         .then(data =>{
-            const dataDiv = document.getElementById('data');
-            dataDiv.innerHTML = "";
+            const tableBodyDiv = document.getElementById('tableBody');
+            tableBodyDiv.innerHTML = "";
             console.log(data);
-            if(data.length > 0){               //从module4学习的展示获取的表的方法,为了美观后续也许会更改.
+            if(data.length > 0){             
                 data.forEach(fundraiser => {
-                    const newP = document.createElement("p");
-                    newP.textContent = `Findraiser ID:${fundraiser.FUNDRAISER_ID},ORGANIZER:${fundraiser.ORGANIZER}`;
-                    newP.addEventListener("click",function(){
-                        localStorage.setItem("ORGANIZER",fundraiser.ORGANIZER);
+
+                    const newRow = document.createElement("tr"); 
+
+                    newRow.addEventListener("click", function () {
+                        localStorage.setItem("ORGANIZER", fundraiser.ORGANIZER);
                         location.href = '/fundraiser';
                     });
-                    dataDiv.appendChild(newP);
+
+                    const captionCell = document.createElement("td");  
+                    captionCell.textContent = fundraiser.CAPTION;  
+                    newRow.appendChild(captionCell); 
+
+                    const organizerCell = document.createElement("td");  
+                    organizerCell.textContent = fundraiser.ORGANIZER;  
+                    newRow.appendChild(organizerCell);  
+
+                    const categoryNameCell = document.createElement("td");  
+                    categoryNameCell.textContent = fundraiser.CATEGORY_NAME;
+                    newRow.appendChild(categoryNameCell);  
+
+                    tableBodyDiv.appendChild(newRow);  
+
                     
                 });
             }else{
-                dataDiv.textContent = "No fundraiser";
+                const noDataMessage = document.createElement("tr");
+                const noDataCell = document.createElement("td");
+                noDataCell.colSpan = 3;
+                noDataCell.textContent = "No fundraisers found.";
+                noDataCell.style.fontWeight = "bold";
+                noDataCell.style.color = "red";
+                noDataCell.style.textAlign = "center";
+                noDataMessage.appendChild(noDataCell);
+                tableBodyDiv.appendChild(noDataMessage);
             }
         })
 
@@ -80,18 +109,16 @@ function startSearch(){
         
     }else{
         alert('At least one piece of data needs to be provided for lookup!');
-        const dataDiv = document.getElementById('data');
-        dataDiv.textContent = "";
+        const tableBodyDiv = document.getElementById('tableBody');
+        tableBodyDiv.textContent = "";
     }
 }
 
 function claerChechboxes(){
     document.getElementById('organizerInput').value = '';
     document.getElementById('cityInput').value = '';
-    const radioButtons = document.querySelectorAll('input[id^="checkbox_"]');
-    radioButtons.forEach(function (radioButton) {
-        radioButton.checked = false;
-    });
-    const dataDiv = document.getElementById('data');
-    dataDiv.textContent = "";
+    const categorySelect = document.getElementsByName('category')[0];
+    categorySelect.selectedIndex = 0;
+    const tableBodyDiv = document.getElementById('tableBody');
+    tableBodyDiv.textContent = "";
 }

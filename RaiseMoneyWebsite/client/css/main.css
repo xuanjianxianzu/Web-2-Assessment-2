@@ -2,14 +2,25 @@
 body{
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-
+    margin: 0;
+    padding: 0;
 }
-/*导航区域的css*/
-  .Navigation {  
+
+.decorativeTop {  
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
+    align-items: center;
+    background-color: #2c2d2e; 
+    width: 100%;
+    box-sizing: border-box;
+}  
+
+/*导航区域的css*/
+  .Navigation {  
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
 }
 
 .Navigation a,.Navigation span {
@@ -17,11 +28,25 @@ body{
     text-align: center;
     text-decoration: none;
     padding: 10px 20px;
-    background-color: #4CAF50;
     color: white;
-    border-radius: 5px;
 }
 
 .Navigation span.current{
-    background-color: #54baf9;
+    background-color: rgb(70, 164, 132);
+}
+
+.webName{
+    flex: 1;
+    text-align: center;
+    align-items: center;
+}
+
+.webName .text1 {  
+    color: white;  
+    font-size: 18px;
+}  
+  
+.webName .text2 {  
+    margin-left: -3px;
+    color: rgb(70, 164, 132);  
 }
